@@ -17,11 +17,15 @@ Packages are consumed as source (no build step); `next.config.ts` in both apps i
 | Route | File | State |
 | --- | --- | --- |
 | `/` | `page.tsx` | placeholder ("TODO: Content") |
+| `/about` | `(marketing)/about/page.tsx` | done (task 01): marketing layout, 2s fake fetch, `loading.tsx`, static metadata |
+| `GET /api/ping` | `api/ping/route.ts` | done (task 01) |
 | `/gallery` | `gallery/page.tsx` | plain `<img>` with picsum URLs, to convert to `next/image` |
 | `/profile/[id]` | `profile/[id]/page.tsx` | sequential awaits in `ProfileContent` inside `Suspense` |
 | `/env-demo` | `env-demo/page.tsx` | server vs. client env var display |
 | `POST /api/analytics` | `api/analytics/route.ts` | logs unvalidated JSON |
 | `GET,POST /api/transactions` | `api/transactions/route.ts` | mock; POST body unvalidated |
+
+Special files: `(marketing)/layout.tsx`, `(marketing)/error.tsx` (client boundary, `retry`), `about/loading.tsx`, global `not-found.tsx`.
 
 `layout.tsx`: title from `NEXT_PUBLIC_APP_NAME`; hand-rolled GA via raw `<script>` when `NEXT_PUBLIC_GA_ID` is set (uses `dangerouslySetInnerHTML`, Biome rule disabled for this file).
 

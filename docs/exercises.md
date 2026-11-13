@@ -13,3 +13,7 @@ Intentionally unfinished code. Section/lesson numbers come from code comments; c
 | `apps/web/src/app/env-demo/page.tsx` | Env var demo (server vs. client) | Env lesson |
 
 When an exercise is finished, strike it here (`~~row~~`) and link the task file.
+
+## Completed tasks
+
+- [01 App Router Basics](tasks/01-app-router-basics.md)

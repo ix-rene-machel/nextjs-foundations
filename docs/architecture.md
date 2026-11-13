@@ -25,6 +25,7 @@ Packages are consumed as source (no build step); `next.config.ts` in both apps i
 | `GET /api/env-check` | `api/env-check/route.ts` | task 04: edge runtime env demo (edge is deprecated) |
 | `/error-demo` | `error-demo/{page,error}.tsx` | done (task 05): throws on `?throw=true`, nested boundary |
 | `GET /api/debug` | `api/debug/route.ts` | task 06: echoes `x-request-id`/`x-pathname` set by the proxy |
+| `/demo/counter`, `/demo/cards` | `demo/*/page.tsx` | done (task 07): Server pages + small client wrappers; both ○ static |
 | `/gallery` | `gallery/page.tsx` | plain `<img>` with picsum URLs, to convert to `next/image` |
 | `/profile/[id]` | `profile/[id]/page.tsx` | sequential awaits in `ProfileContent` inside `Suspense` |
 | `/env-demo` | `env-demo/page.tsx` | done (task 02): server vs. client env display, counter, `Collapsible` composition |
@@ -43,6 +44,7 @@ Theme: `ThemeScript` (inline script in `<head>`) + `ThemeToggle` (client), `data
 | --- | --- |
 | `/` | `page.tsx`: `fetchPosts(10)` |
 | 404 | `not-found.tsx` | custom (task 05) |
+| `/demo/boundary` | `demo/boundary/page.tsx` | done (task 07): Server page + local `Counter` client component |
 | `/[slug]` | `[slug]/page.tsx`: `fetchPostBySlug`, `notFound()`, async `params`, `generateStaticParams` (top 10) |
 
 ## packages/api

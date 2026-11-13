@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 
 import "./globals.css";
+import { ThemeScript } from "@/components/theme-script";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export const metadata: Metadata = {
   title: process.env.NEXT_PUBLIC_APP_NAME || "Vercel Academy Foundation - Web",
@@ -15,8 +17,14 @@ export default function RootLayout({
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
       <body className="container mx-auto px-4 py-8">
+        <div className="mb-4 flex justify-end">
+          <ThemeToggle />
+        </div>
         {children}
         {/* TODO: Replace this hand-rolled integration in Section 4 Lesson 3. */}
         {gaId ? (

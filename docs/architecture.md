@@ -21,11 +21,13 @@ Packages are consumed as source (no build step); `next.config.ts` in both apps i
 | `GET /api/ping` | `api/ping/route.ts` | done (task 01) |
 | `/gallery` | `gallery/page.tsx` | plain `<img>` with picsum URLs, to convert to `next/image` |
 | `/profile/[id]` | `profile/[id]/page.tsx` | sequential awaits in `ProfileContent` inside `Suspense` |
-| `/env-demo` | `env-demo/page.tsx` | server vs. client env var display |
+| `/env-demo` | `env-demo/page.tsx` | done (task 02): server vs. client env display, counter, `Collapsible` composition |
 | `POST /api/analytics` | `api/analytics/route.ts` | logs unvalidated JSON |
 | `GET,POST /api/transactions` | `api/transactions/route.ts` | mock; POST body unvalidated |
 
 Special files: `(marketing)/layout.tsx`, `(marketing)/error.tsx` (client boundary, `retry`), `about/loading.tsx`, global `not-found.tsx`.
+
+Theme: `ThemeScript` (inline script in `<head>`) + `ThemeToggle` (client), `data-theme` on `<html>`, tokens in `globals.css`.
 
 `layout.tsx`: title from `NEXT_PUBLIC_APP_NAME`; hand-rolled GA via raw `<script>` when `NEXT_PUBLIC_GA_ID` is set (uses `dangerouslySetInnerHTML`, Biome rule disabled for this file).
 

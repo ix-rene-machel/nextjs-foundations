@@ -50,7 +50,10 @@
       }
     },
     {
-      "includes": ["apps/web/src/app/layout.tsx"],
+      "includes": [
+        "apps/web/src/app/layout.tsx",
+        "apps/web/src/components/theme-script.tsx"
+      ],
       "linter": {
         "rules": {
           "security": {

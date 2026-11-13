@@ -10,10 +10,11 @@ Intentionally unfinished code. Section/lesson numbers come from code comments; c
 | `apps/web/src/app/api/transactions/route.ts` | Zod validation of POST body | Section 4 Lesson 1 |
 | `apps/web/src/app/api/analytics/route.ts` | Validation + proper logging | Section 4 |
 | `apps/web/src/app/layout.tsx` | Replace raw GA scripts with `@next/third-parties` / `next/script` | Section 4 Lesson 3 |
-| `apps/web/src/app/env-demo/page.tsx` | Env var demo (server vs. client) | Env lesson |
+| ~~`apps/web/src/app/env-demo/page.tsx`~~ | Env var demo (server vs. client): done in [task 02](tasks/02-server-and-client-components.md) | Env lesson |
 
 When an exercise is finished, strike it here (`~~row~~`) and link the task file.
 
 ## Completed tasks
 
 - [01 App Router Basics](tasks/01-app-router-basics.md)
+- [02 Server and Client Components](tasks/02-server-and-client-components.md) (incl. theme toggle side quest)

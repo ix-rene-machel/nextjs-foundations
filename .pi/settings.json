@@ -1,0 +1,6 @@
+{
+  "skills": ["../.claude/skills"],
+  "defaultProvider": "ica",
+  "defaultModel": "claude-sonnet-5",
+  "enabledModels": ["ica/*"]
+}

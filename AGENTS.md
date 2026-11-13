@@ -1,270 +1,69 @@
-# Next.js Foundations Starter
+# Next.js Foundations (Vercel Academy certification)
 
-This is the starter repository for the Next.js Foundations certification course.
+Turborepo + pnpm monorepo. Goal: complete certification tasks (supplied as markdown in `docs/tasks/`) by evolving intentionally unfinished starter code. Docs index: [`docs/README.md`](docs/README.md).
 
-## Project Overview
+## Workflow for a task
 
-A Turborepo monorepo with two Next.js applications and shared packages:
+1. Task markdown goes in `docs/tasks/NN-name.md` (copy `docs/tasks/_template.md`).
+2. Read it, then read `docs/exercises.md` (map of starter TODOs) and the relevant bundled Next docs (see below).
+3. Implement in `apps/web` or `apps/blog`. Do not touch `packages/*` unless the task says so.
+4. Run `pnpm check-types && pnpm lint && pnpm build`. Fix before reporting done.
+5. Record outcome and decisions in the task file (Status, Notes). Put reusable learnings in `docs/notes/`.
 
-```
-nextjs-foundations-starter/
-├── apps/
-│   ├── web/          # Marketing site (port 3000)
-│   └── blog/         # Content hub (port 3001)
-├── packages/
-│   ├── ui/           # Shared React components (@repo/ui)
-│   └── api/          # Mock data layer with Faker (@repo/api)
-├── turbo.json        # Turborepo task configuration
-├── biome.jsonc       # Linting and formatting (Biome)
-└── package.json      # Root workspace configuration
-```
+## Stack (verify in `package.json`, do not assume)
 
-## Tech Stack
+Next.js 16.4.5 (App Router, async request APIs), React 19.3, TypeScript 5.9 strict, Tailwind 4, Zod 4, Biome 2 (no ESLint/Prettier), Turborepo, pnpm 10.34.5, Node 24.x.
 
-- **Next.js 16.4** - React framework with App Router and async request APIs
-- **React 19** - Latest React with Server Components
-- **TypeScript** - Strict mode enabled
-- **Tailwind CSS 4** - Utility-first styling
-- **Turborepo** - Monorepo build orchestration
-- **Biome** - Fast linting and formatting (replaces ESLint/Prettier)
-- **pnpm** - Fast, disk-efficient package manager
-- **Vercel CLI** - Deploy, link projects, manage env vars
+## Layout
 
-## Workflows
+| Path | Purpose | Port |
+| --- | --- | --- |
+| `apps/web` | Marketing site; Vercel project root (`.vercel/repo.json` → `apps/web`) | 3000 |
+| `apps/blog` | Content hub, uses `@repo/api/blog` | 3001 |
+| `packages/ui` | Shared shadcn-style components (`@repo/ui`) | – |
+| `packages/api` | Faker-based mock data (`@repo/api`) | – |
 
-### Initial Setup
+Details: [`docs/architecture.md`](docs/architecture.md).
+
+## Commands
 
 ```bash
-# Install Vercel CLI globally
-pnpm add -g vercel
-
-# Authenticate with Vercel
-vercel login
-
-# Clone and install
-git clone https://github.com/YOUR_USERNAME/nextjs-foundations
-cd nextjs-foundations
-pnpm install
-
-# Link to your Vercel project
-vercel link
-
-# Pull environment variables
-vercel env pull
+pnpm dev                          # both apps
+pnpm dev --filter @repo/web       # one app
+pnpm check-types                  # next typegen + tsc, all packages
+pnpm lint                         # biome lint
+pnpm format                       # biome format --write
+pnpm build                        # turbo build
+pnpm add <pkg> --filter @repo/web # add dep to one workspace
 ```
 
-### Development
+Vercel CLI is installed, authenticated and linked (project `nextjs-foundations`, team `team_WEubgFNeuXdzA7AWn8uOFfEB`). Run Vercel commands from `apps/web`: `vercel env pull`, `vercel list`, `vercel logs <url>`, `vercel --prod`. See [`docs/vercel.md`](docs/vercel.md).
 
-```bash
-# Start both apps in dev mode
-pnpm dev
-# web: http://localhost:3000
-# blog: http://localhost:3001
+## Imports
 
-# Start a specific app
-pnpm dev --filter @repo/web
-pnpm dev --filter @repo/blog
-```
+- `@/*` → app-local `src/*`
+- `@repo/ui/components/button`, `@repo/ui/lib/utils`, `@repo/ui/globals.css`
+- `@repo/api/blog`, `@repo/api/brand`, `@repo/api/gallery` (exports map `./*` → `src/*.ts`)
 
-### Vercel CLI
+Check each app's `tsconfig.json` paths before importing; `apps/blog` maps `@repo/ui/*` to `packages/ui/src/*`.
 
-```bash
-# Check deployment status
-vercel list
+## Conventions
 
-# View deployment logs
-vercel logs <deployment-url>
+- Server Components by default; add `'use client'` only for state/effects/browser APIs.
+- Next 16: `params`/`searchParams`/`cookies()`/`headers()` are Promises, `await` them.
+- Use `next/image`, `next/link`, `next/font`, `next/script`; never `<img>`/`<head>`.
+- Strict TS (`noUncheckedIndexedAccess` etc.), no `any`, use `unknown` + type guards, `type` over `interface`, explicit return types on functions.
+- Validate external input (route handlers) with Zod.
+- Env: `NEXT_PUBLIC_*` is bundled to the browser; everything else is server-only. Never commit `.env*` (gitignored). `apps/web/.env.local` holds a Vercel OIDC token; never print it.
+- Biome quote style differs per area (`apps/web` double, `apps/blog` + `packages/*` single, plus overrides in `biome.jsonc`). Run `pnpm format` instead of hand-formatting. Lint rules in `.rules`.
+- Any `// biome-ignore ... intentional` marks an exercise; remove it when solving that exercise.
 
-# Pull latest env vars
-vercel env pull
+## Next.js docs: use these, not training data
 
-# Open project in dashboard
-vercel open
-```
+Bundled version-matched docs: `apps/web/node_modules/next/dist/docs/` (`01-app/` = App Router guides + API reference). Grep there first; fall back to https://nextjs.org/docs.
 
-### Quality Checks
+## Don't
 
-```bash
-# Type check all packages
-pnpm check-types
-
-# Lint with Biome
-pnpm lint
-
-# Format with Biome
-pnpm format
-
-# Run all checks
-pnpm check
-```
-
-### Building
-
-```bash
-# Build all packages
-pnpm build
-
-# Build specific app
-pnpm build --filter @repo/web
-```
-
-## Package Dependencies
-
-### Using Shared Packages
-
-Import from `@repo/ui` for components:
-
-```tsx
-import { Button } from "@repo/ui/button";
-import { Card } from "@repo/ui/card";
-```
-
-Import from `@repo/api` for mock data:
-
-```tsx
-import { getPosts } from "@repo/api/posts";
-import { getGalleryItems } from "@repo/api/gallery";
-```
-
-### Adding Dependencies
-
-```bash
-# Add to specific app
-pnpm add <package> --filter @repo/web
-
-# Add to shared package
-pnpm add <package> --filter @repo/ui
-
-# Add dev dependency to root
-pnpm add -D <package> -w
-```
-
-## TypeScript Configuration
-
-This project uses strict TypeScript with Matt Pocock's recommended settings:
-
-- `strict: true` - Full strict mode
-- `noUncheckedIndexedAccess: true` - Safer array/object access
-- `noImplicitOverride: true` - Explicit override keyword required
-- `noPropertyAccessFromIndexSignature: true` - Bracket notation for index signatures
-
-Path aliases are configured:
-
-- `@/*` - Local app imports
-- `@repo/ui/*` - Shared UI components
-- `@repo/api/*` - Mock data functions
-
-## Biome (Linting & Formatting)
-
-This project uses Biome instead of ESLint/Prettier. Tailwind directives are enabled in the CSS parser.
-
-```bash
-# Check for issues
-pnpm lint
-
-# Auto-fix issues
-pnpm format
-
-# Check everything (lint + format)
-pnpm check
-```
-
-## Turborepo Tasks
-
-Defined in `turbo.json`:
-
-| Task          | Cached | Description               |
-| ------------- | ------ | ------------------------- |
-| `dev`         | No     | Start development servers |
-| `build`       | Yes    | Production build          |
-| `check-types` | Yes    | TypeScript type checking  |
-| `start`       | No     | Start production servers  |
-
-## Common Patterns
-
-### Server Components (Default)
-
-All components in the App Router are Server Components by default:
-
-```tsx
-// app/page.tsx - This is a Server Component
-import { getPosts } from "@repo/api/posts";
-
-export default async function Page() {
-  const posts = await getPosts();
-  return <PostList posts={posts} />;
-}
-```
-
-### Client Components
-
-Add `"use client"` directive for interactivity:
-
-```tsx
-"use client";
-
-import { useState } from "react";
-
-export function Counter() {
-  const [count, setCount] = useState(0);
-  return <button onClick={() => setCount((c) => c + 1)}>{count}</button>;
-}
-```
-
-### Shared Components
-
-Components in `@repo/ui` can be used in both apps:
-
-```tsx
-// packages/ui/src/button.tsx
-export function Button({ children, ...props }) {
-  return (
-    <button className="..." {...props}>
-      {children}
-    </button>
-  );
-}
-
-// apps/web/app/page.tsx
-import { Button } from "@repo/ui/button";
-```
-
-## Troubleshooting
-
-### Port Already in Use
-
-```bash
-# Kill process on port 3000
-lsof -ti:3000 | xargs kill -9
-
-# Or use different ports
-PORT=3002 pnpm dev --filter @repo/web
-```
-
-### Type Errors After Package Changes
-
-```bash
-# Reinstall, then force a rebuild if cache state is suspect
-pnpm install
-pnpm exec turbo run build --force
-```
-
-### Biome Conflicts with Editor
-
-Disable ESLint/Prettier extensions and enable Biome extension in your editor.
-
-## Course Integration
-
-This starter is designed for the Next.js Foundations certification. As you progress through lessons:
-
-1. **Don't modify shared packages** unless instructed
-2. **Focus on `apps/web` and `apps/blog`** for exercises
-3. **Use `@repo/api` functions** for mock data
-4. **Follow the lesson structure** - each builds on previous work
-
-## Resources
-
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Turborepo Documentation](https://turbo.build/repo/docs)
-- [Biome Documentation](https://biomejs.dev/)
-- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
+- Don't refactor outside the task scope; later tasks build on the current state.
+- Don't remove exercise TODO comments until that exercise is actually done.
+- Don't commit unless asked.

@@ -23,3 +23,4 @@ When an exercise is finished, strike it here (`~~row~~`) and link the task file.
 - [05 Errors and Not Found](tasks/05-errors-and-not-found.md)
 - [06 Proxy Basics](tasks/06-proxy-basics.md)
 - [07 Client-Server Component Boundaries](tasks/07-client-server-boundaries.md)
+- [08 Component Composition Patterns](tasks/08-component-composition-patterns.md)

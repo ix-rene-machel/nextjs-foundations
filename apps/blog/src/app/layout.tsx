@@ -14,7 +14,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="container mx-auto px-4 py-8">{children}</body>
+      <body>
+        {/* Layout classes live on a wrapper, not on <body>: Radix's scroll lock
+            (Dialog) overrides body margin/padding and would shift the page. */}
+        <div className="container mx-auto px-4 py-8">{children}</div>
+      </body>
     </html>
   );
 }

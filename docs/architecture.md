@@ -68,6 +68,10 @@ Theme: `ThemeScript` (inline script in `<head>`) + `ThemeToggle` (client), `data
 
 Data is Faker-generated and NOT seeded: memoized per process only, so separate build workers see different posts (see task 03 findings). `fetchPostBySlug` generates a random post for unknown slugs instead of returning `null`. Simulated latency via timeouts.
 
+## Multi-zone
+
+`apps/web` (default zone) rewrites `/blog`, `/blog/:path*` and `/blog-static/:path+` to the blog zone at `BLOG_URL` (default `http://localhost:3001`). The blog has `basePath: '/blog'` and `assetPrefix: '/blog-static'`. The rewrite target is fixed at build time. Vercel needs `BLOG_URL` set for the web project's build; the blog has no Vercel project yet (task 15).
+
 ## Proxy
 
 `src/proxy.ts` (task 06): runs on every request except `_next/static`, `_next/image`, `favicon.ico`. Logs `[Proxy] METHOD /path`, adds request headers `x-request-id`, `x-pathname`, and response headers `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `X-Request-Id`. Node.js runtime only.

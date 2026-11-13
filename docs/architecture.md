@@ -33,6 +33,7 @@ Packages are consumed as source (no build step); `next.config.ts` in both apps i
 | `/dashboard/*` | `dashboard/{layout,page}.tsx`, `analytics/`, `settings/` | task 10: sidebar layout, persists across sibling pages; page state resets |
 | `/data-demo` | `data-demo/{page,data}.ts(x)` | task 11: parallel vs sequential timing, `allSettled` partial failure (ƒ, `connection()`) |
 | `/users/[id]` | `users/[id]/page.tsx` | task 11: `await params` inside `Promise.all` |
+| `/nav-demo/*` | `nav-demo/**` | task 12: Link vs hard `<a>`, useRouter push/back/replace, redirect() + Server Action login (cookie `session`) |
 | `/gallery` | `gallery/page.tsx` | plain `<img>` with picsum URLs, to convert to `next/image` |
 | `/profile/[id]` | `profile/[id]/page.tsx` | sequential awaits in `ProfileContent` inside `Suspense` |
 | `/env-demo` | `env-demo/page.tsx` | done (task 02): server vs. client env display, counter, `Collapsible` composition |

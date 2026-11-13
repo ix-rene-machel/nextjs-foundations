@@ -5,7 +5,7 @@
 ```
 apps/web     @repo/web   Next 16.4.5, port 3000, Vercel project root
 apps/blog    @repo/blog  Next 16.4.5, port 3001
-packages/ui  @repo/ui    Tailwind 4 + shadcn-style (Button, cn util, globals.css)
+packages/ui  @repo/ui    Tailwind 4 + shadcn-style (Button, Dialog compound component (named exports), cn util, globals.css)
 packages/api @repo/api   Faker mock data, async fetch* functions
 ```
 
@@ -25,6 +25,7 @@ Packages are consumed as source (no build step); `next.config.ts` in both apps i
 | `GET /api/env-check` | `api/env-check/route.ts` | task 04: edge runtime env demo (edge is deprecated) |
 | `/error-demo` | `error-demo/{page,error}.tsx` | done (task 05): throws on `?throw=true`, nested boundary |
 | `GET /api/debug` | `api/debug/route.ts` | task 06: echoes `x-request-id`/`x-pathname` set by the proxy |
+| `/demo/dialog` | `demo/dialog/page.tsx` | done (task 08): shared `@repo/ui` Dialog, server children inside |
 | `/gallery` | `gallery/page.tsx` | plain `<img>` with picsum URLs, to convert to `next/image` |
 | `/profile/[id]` | `profile/[id]/page.tsx` | sequential awaits in `ProfileContent` inside `Suspense` |
 | `/env-demo` | `env-demo/page.tsx` | done (task 02): server vs. client env display, counter, `Collapsible` composition |
@@ -32,6 +33,8 @@ Packages are consumed as source (no build step); `next.config.ts` in both apps i
 | `GET,POST /api/transactions` | `api/transactions/route.ts` | mock; POST body unvalidated |
 
 Special files: `(marketing)/layout.tsx`, `(marketing)/error.tsx` (client boundary, `retry`), `about/loading.tsx`, root `error.tsx` + global `not-found.tsx` (task 05), `error-demo/error.tsx`. No `global-error.tsx` yet.
+
+Root layouts (web + blog): `<body>` carries no classes; `container mx-auto px-4 py-8` sits on a wrapper `<div>` because Radix's scroll lock overrides `body` margin/padding (task 08).
 
 Theme: `ThemeScript` (inline script in `<head>`) + `ThemeToggle` (client), `data-theme` on `<html>`, tokens in `globals.css`.
 

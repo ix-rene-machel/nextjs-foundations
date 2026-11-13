@@ -21,11 +21,15 @@ export default function RootLayout({
       <head>
         <ThemeScript />
       </head>
-      <body className="container mx-auto px-4 py-8">
-        <div className="mb-4 flex justify-end">
-          <ThemeToggle />
+      <body>
+        {/* Layout classes live on a wrapper, not on <body>: Radix's scroll lock
+            (Dialog) overrides body margin/padding and would shift the page. */}
+        <div className="container mx-auto px-4 py-8">
+          <div className="mb-4 flex justify-end">
+            <ThemeToggle />
+          </div>
+          {children}
         </div>
-        {children}
         {/* TODO: Replace this hand-rolled integration in Section 4 Lesson 3. */}
         {gaId ? (
           <>

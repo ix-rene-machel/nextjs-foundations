@@ -1,3 +1,7 @@
+import Link from "next/link";
+
+// Marketing section chrome: header, nav, footer. The (marketing) route group
+// does not add a URL segment, so this serves /, /about and /pricing.
 export default function MarketingLayout({
   children,
 }: {
@@ -7,15 +11,21 @@ export default function MarketingLayout({
     <div className="min-h-screen">
       <header className="mb-8 border-b py-4">
         <nav className="flex gap-4">
-          <a href="/" className="font-semibold">
+          <Link href="/" className="font-semibold">
             Home
-          </a>
-          <a href="/about" className="text-gray-600 hover:text-gray-900">
+          </Link>
+          <Link href="/about" className="text-gray-600 hover:text-gray-900">
             About
-          </a>
-          <a href="/pricing" className="text-gray-600 hover:text-gray-900">
+          </Link>
+          <Link href="/pricing" className="text-gray-600 hover:text-gray-900">
             Pricing
-          </a>
+          </Link>
+          <Link
+            href="/dashboard"
+            className="ml-auto text-blue-600 hover:text-blue-800"
+          >
+            Dashboard →
+          </Link>
         </nav>
       </header>
       <main>{children}</main>

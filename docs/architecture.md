@@ -29,6 +29,8 @@ Packages are consumed as source (no build step); `next.config.ts` in both apps i
 | `GET /api/debug` | `api/debug/route.ts` | task 06: echoes `x-request-id`/`x-pathname` set by the proxy |
 | `/demo/counter`, `/demo/cards` | `demo/*/page.tsx` | done (task 07): Server pages + small client wrappers; both ○ static |
 | `/demo/dialog` | `demo/dialog/page.tsx` | done (task 08): shared `@repo/ui` Dialog, server children inside |
+| `/`, `/about` | `(marketing)/{layout,page}.tsx`, `about/page.tsx` | task 10: marketing chrome (header, nav incl. Dashboard link, footer). Home moved under the route group |
+| `/dashboard/*` | `dashboard/{layout,page}.tsx`, `analytics/`, `settings/` | task 10: sidebar layout, persists across sibling pages; page state resets |
 | `/gallery` | `gallery/page.tsx` | plain `<img>` with picsum URLs, to convert to `next/image` |
 | `/profile/[id]` | `profile/[id]/page.tsx` | sequential awaits in `ProfileContent` inside `Suspense` |
 | `/env-demo` | `env-demo/page.tsx` | done (task 02): server vs. client env display, counter, `Collapsible` composition |

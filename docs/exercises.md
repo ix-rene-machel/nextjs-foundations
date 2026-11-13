@@ -24,4 +24,5 @@ When an exercise is finished, strike it here (`~~row~~`) and link the task file.
 - [06 Proxy Basics](tasks/06-proxy-basics.md)
 - [07 Client-Server Component Boundaries](tasks/07-client-server-boundaries.md)
 - [08 Component Composition Patterns](tasks/08-component-composition-patterns.md)
+- [10 Nested Layouts](tasks/10-nested-layouts.md) (branch `feat/core-nested-layout`)
 - [09 Not Found & Errors](tasks/09-not-found-and-error-surfaces.md) (incl. granular recovery side quest)

@@ -19,3 +19,4 @@ When an exercise is finished, strike it here (`~~row~~`) and link the task file.
 - [01 App Router Basics](tasks/01-app-router-basics.md)
 - [02 Server and Client Components](tasks/02-server-and-client-components.md) (incl. theme toggle side quest)
 - [03 Dynamic Routing](tasks/03-dynamic-routing.md)
+- [04 Environment and Security](tasks/04-env-and-security.md) (incl. Zod env validation side quest)

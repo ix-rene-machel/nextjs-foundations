@@ -21,6 +21,8 @@ Packages are consumed as source (no build step); `next.config.ts` in both apps i
 | `GET /api/ping` | `api/ping/route.ts` | done (task 01) |
 | `/docs/[...slug]` | `docs/[...slug]/page.tsx` | done (task 03): required catch-all, `/docs` is 404 |
 | `/shop/[[...slug]]` | `shop/[[...slug]]/page.tsx` | done (task 03): optional catch-all |
+| `/security-demo` | `security-demo/page.tsx` | done (task 04): DAL (`lib/server`, `server-only`) → DTO → `UserCard` |
+| `GET /api/env-check` | `api/env-check/route.ts` | task 04: edge runtime env demo (edge is deprecated) |
 | `/gallery` | `gallery/page.tsx` | plain `<img>` with picsum URLs, to convert to `next/image` |
 | `/profile/[id]` | `profile/[id]/page.tsx` | sequential awaits in `ProfileContent` inside `Suspense` |
 | `/env-demo` | `env-demo/page.tsx` | done (task 02): server vs. client env display, counter, `Collapsible` composition |
@@ -57,6 +59,8 @@ Data is Faker-generated and NOT seeded: memoized per process only, so separate b
 | `NEXT_PUBLIC_GA_ID` | client+server | optional, empty until Third-Party Scripts lesson |
 | `INTERNAL_CONFIG` | server only | `undefined` in Client Components |
 | `VERCEL_OIDC_TOKEN` | server | written by `vercel env pull`; secret |
+
+Validation: Zod schemas in `src/lib/env-schema.ts`, enforced in `next.config.ts` (dev/build/start) and `src/instrumentation.ts` (server start). Server code reads env via `getServerEnv()` (`src/lib/server/env.ts`).
 
 Source of truth is Vercel; `apps/web/.env.local` is pulled. `.env.example` at repo root is the template.
 

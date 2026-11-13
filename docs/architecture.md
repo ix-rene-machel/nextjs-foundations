@@ -23,13 +23,14 @@ Packages are consumed as source (no build step); `next.config.ts` in both apps i
 | `/shop/[[...slug]]` | `shop/[[...slug]]/page.tsx` | done (task 03): optional catch-all |
 | `/security-demo` | `security-demo/page.tsx` | done (task 04): DAL (`lib/server`, `server-only`) → DTO → `UserCard` |
 | `GET /api/env-check` | `api/env-check/route.ts` | task 04: edge runtime env demo (edge is deprecated) |
+| `/error-demo` | `error-demo/{page,error}.tsx` | done (task 05): throws on `?throw=true`, nested boundary |
 | `/gallery` | `gallery/page.tsx` | plain `<img>` with picsum URLs, to convert to `next/image` |
 | `/profile/[id]` | `profile/[id]/page.tsx` | sequential awaits in `ProfileContent` inside `Suspense` |
 | `/env-demo` | `env-demo/page.tsx` | done (task 02): server vs. client env display, counter, `Collapsible` composition |
 | `POST /api/analytics` | `api/analytics/route.ts` | logs unvalidated JSON |
 | `GET,POST /api/transactions` | `api/transactions/route.ts` | mock; POST body unvalidated |
 
-Special files: `(marketing)/layout.tsx`, `(marketing)/error.tsx` (client boundary, `retry`), `about/loading.tsx`, global `not-found.tsx`.
+Special files: `(marketing)/layout.tsx`, `(marketing)/error.tsx` (client boundary, `retry`), `about/loading.tsx`, root `error.tsx` + global `not-found.tsx` (task 05), `error-demo/error.tsx`. No `global-error.tsx` yet.
 
 Theme: `ThemeScript` (inline script in `<head>`) + `ThemeToggle` (client), `data-theme` on `<html>`, tokens in `globals.css`.
 
@@ -40,6 +41,7 @@ Theme: `ThemeScript` (inline script in `<head>`) + `ThemeToggle` (client), `data
 | Route | File |
 | --- | --- |
 | `/` | `page.tsx`: `fetchPosts(10)` |
+| 404 | `not-found.tsx` | custom (task 05) |
 | `/[slug]` | `[slug]/page.tsx`: `fetchPostBySlug`, `notFound()`, async `params`, `generateStaticParams` (top 10) |
 
 ## packages/api

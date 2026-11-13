@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { TriggerErrorButton } from "@/components/errors/trigger-error-button";
 
 export default async function ErrorDemoPage(props: {
   searchParams: Promise<{ throw?: string }>;
@@ -19,7 +20,7 @@ export default async function ErrorDemoPage(props: {
 
       <div className="space-y-4">
         <div className="rounded border p-4">
-          <h2 className="mb-2 font-semibold">Trigger an Error</h2>
+          <h2 className="mb-2 font-semibold">Trigger a Server Error</h2>
           <p className="mb-4 text-gray-600 text-sm">
             Click below to throw an error and see the error boundary in action.
           </p>
@@ -28,6 +29,29 @@ export default async function ErrorDemoPage(props: {
             className="inline-block rounded bg-red-600 px-4 py-2 text-white hover:bg-red-700"
           >
             Throw Error
+          </Link>
+        </div>
+
+        <div className="rounded border p-4">
+          <h2 className="mb-2 font-semibold">Trigger a Client Error</h2>
+          <p className="mb-4 text-gray-600 text-sm">
+            Throws during render of a Client Component (no request). The same
+            boundary catches it.
+          </p>
+          <TriggerErrorButton />
+        </div>
+
+        <div className="rounded border p-4">
+          <h2 className="mb-2 font-semibold">Granular Recovery</h2>
+          <p className="mb-4 text-gray-600 text-sm">
+            Component-level boundaries that keep the rest of the page (and form
+            input) intact.
+          </p>
+          <Link
+            href="/error-demo/granular"
+            className="inline-block rounded bg-gray-900 px-4 py-2 text-white hover:bg-gray-800"
+          >
+            Open granular demo
           </Link>
         </div>
 

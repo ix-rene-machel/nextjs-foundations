@@ -24,6 +24,7 @@ Packages are consumed as source (no build step); `next.config.ts` in both apps i
 | `/security-demo` | `security-demo/page.tsx` | done (task 04): DAL (`lib/server`, `server-only`) → DTO → `UserCard` |
 | `GET /api/env-check` | `api/env-check/route.ts` | task 04: edge runtime env demo (edge is deprecated) |
 | `/error-demo` | `error-demo/{page,error}.tsx` | done (task 05): throws on `?throw=true`, nested boundary |
+| `GET /api/debug` | `api/debug/route.ts` | task 06: echoes `x-request-id`/`x-pathname` set by the proxy |
 | `/gallery` | `gallery/page.tsx` | plain `<img>` with picsum URLs, to convert to `next/image` |
 | `/profile/[id]` | `profile/[id]/page.tsx` | sequential awaits in `ProfileContent` inside `Suspense` |
 | `/env-demo` | `env-demo/page.tsx` | done (task 02): server vs. client env display, counter, `Collapsible` composition |
@@ -51,6 +52,10 @@ Theme: `ThemeScript` (inline script in `<head>`) + `ThemeToggle` (client), `data
 - `gallery`: `getGalleryItems(limit)`
 
 Data is Faker-generated and NOT seeded: memoized per process only, so separate build workers see different posts (see task 03 findings). `fetchPostBySlug` generates a random post for unknown slugs instead of returning `null`. Simulated latency via timeouts.
+
+## Proxy
+
+`src/proxy.ts` (task 06): runs on every request except `_next/static`, `_next/image`, `favicon.ico`. Logs `[Proxy] METHOD /path`, adds request headers `x-request-id`, `x-pathname`, and response headers `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `X-Request-Id`. Node.js runtime only.
 
 ## Environment variables
 

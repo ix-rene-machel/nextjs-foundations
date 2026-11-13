@@ -21,3 +21,4 @@ When an exercise is finished, strike it here (`~~row~~`) and link the task file.
 - [03 Dynamic Routing](tasks/03-dynamic-routing.md)
 - [04 Environment and Security](tasks/04-env-and-security.md) (incl. Zod env validation + tainting)
 - [05 Errors and Not Found](tasks/05-errors-and-not-found.md)
+- [06 Proxy Basics](tasks/06-proxy-basics.md)

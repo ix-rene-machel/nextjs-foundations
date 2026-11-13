@@ -35,6 +35,7 @@ Packages are consumed as source (no build step); `next.config.ts` in both apps i
 | `/users/[id]` | `users/[id]/page.tsx` | task 11: `await params` inside `Promise.all` |
 | `/nav-demo/*` | `nav-demo/**` | task 12: Link vs hard `<a>`, useRouter push/back/replace, redirect() + Server Action login (cookie `session`) |
 | blog `/` (listing) | `apps/blog/src/app/page.tsx`, `components/filter-controls.tsx` | task 13: ƒ, `searchParams` → category + sort in the URL; client filter chips |
+| `/contact` | `contact/page.tsx`, `actions/contact.ts`, `ui/submit-button.tsx` | task 14: Server Action + Zod validation, `useActionState` errors, `useFormStatus` pending. Static (○) |
 | `/gallery` | `gallery/page.tsx` | plain `<img>` with picsum URLs, to convert to `next/image` |
 | `/profile/[id]` | `profile/[id]/page.tsx` | sequential awaits in `ProfileContent` inside `Suspense` |
 | `/env-demo` | `env-demo/page.tsx` | done (task 02): server vs. client env display, counter, `Collapsible` composition |

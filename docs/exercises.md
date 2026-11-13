@@ -24,6 +24,7 @@ When an exercise is finished, strike it here (`~~row~~`) and link the task file.
 - [06 Proxy Basics](tasks/06-proxy-basics.md)
 - [07 Client-Server Component Boundaries](tasks/07-client-server-boundaries.md)
 - [08 Component Composition Patterns](tasks/08-component-composition-patterns.md)
+- [14 Server Actions for Forms](tasks/14-server-actions-for-forms.md) (branch `feat/core-server-actions-form`)
 - [13 params vs searchParams](tasks/13-params-vs-searchparams.md) (branch `feat/core-params-searchparams`, blog app)
 - [12 Navigation](tasks/12-navigation.md) (branch `feat/core-next-link`; page-level form state not preserved, see task doc)
 - [11 Data Fetching Without Waterfalls](tasks/11-data-fetching-without-waterfalls.md) (branch `feat/core-parallel-fetch`)

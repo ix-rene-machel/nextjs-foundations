@@ -23,7 +23,9 @@ Packages are consumed as source (no build step); `next.config.ts` in both apps i
 | `/shop/[[...slug]]` | `shop/[[...slug]]/page.tsx` | done (task 03): optional catch-all |
 | `/security-demo` | `security-demo/page.tsx` | done (task 04): DAL (`lib/server`, `server-only`) → DTO → `UserCard` |
 | `GET /api/env-check` | `api/env-check/route.ts` | task 04: edge runtime env demo (edge is deprecated) |
-| `/error-demo` | `error-demo/{page,error}.tsx` | done (task 05): throws on `?throw=true`, nested boundary |
+| `/error-demo` | `error-demo/{layout,page,error}.tsx` | tasks 05 + 09: server (`?throw=true`) and client (button) errors, nested boundary with correlation ID (`x-request-id`) |
+| `/error-demo/granular` | `error-demo/granular/page.tsx` | task 09 side quest: `catchError` widget boundaries, form draft preserved |
+| `/posts`, `/posts/[slug]` | `posts/**` | task 09: `notFound()` + nested `not-found.tsx` |
 | `GET /api/debug` | `api/debug/route.ts` | task 06: echoes `x-request-id`/`x-pathname` set by the proxy |
 | `/demo/counter`, `/demo/cards` | `demo/*/page.tsx` | done (task 07): Server pages + small client wrappers; both ○ static |
 | `/demo/dialog` | `demo/dialog/page.tsx` | done (task 08): shared `@repo/ui` Dialog, server children inside |

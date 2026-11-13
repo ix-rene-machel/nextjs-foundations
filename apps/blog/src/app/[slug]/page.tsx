@@ -1,6 +1,14 @@
-import { fetchPostBySlug } from '@repo/api/blog';
+import { fetchPostBySlug, fetchPosts } from '@repo/api/blog';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+
+export async function generateStaticParams(): Promise<{ slug: string }[]> {
+  const posts = await fetchPosts(10); // Pre-render top 10 posts
+
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
 
 type Props = {
   params: Promise<{ slug: string }>;

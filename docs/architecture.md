@@ -19,6 +19,8 @@ Packages are consumed as source (no build step); `next.config.ts` in both apps i
 | `/` | `page.tsx` | placeholder ("TODO: Content") |
 | `/about` | `(marketing)/about/page.tsx` | done (task 01): marketing layout, 2s fake fetch, `loading.tsx`, static metadata |
 | `GET /api/ping` | `api/ping/route.ts` | done (task 01) |
+| `/docs/[...slug]` | `docs/[...slug]/page.tsx` | done (task 03): required catch-all, `/docs` is 404 |
+| `/shop/[[...slug]]` | `shop/[[...slug]]/page.tsx` | done (task 03): optional catch-all |
 | `/gallery` | `gallery/page.tsx` | plain `<img>` with picsum URLs, to convert to `next/image` |
 | `/profile/[id]` | `profile/[id]/page.tsx` | sequential awaits in `ProfileContent` inside `Suspense` |
 | `/env-demo` | `env-demo/page.tsx` | done (task 02): server vs. client env display, counter, `Collapsible` composition |
@@ -36,7 +38,7 @@ Theme: `ThemeScript` (inline script in `<head>`) + `ThemeToggle` (client), `data
 | Route | File |
 | --- | --- |
 | `/` | `page.tsx`: `fetchPosts(10)` |
-| `/[slug]` | `[slug]/page.tsx`: `fetchPostBySlug`, `notFound()`, async `params` |
+| `/[slug]` | `[slug]/page.tsx`: `fetchPostBySlug`, `notFound()`, async `params`, `generateStaticParams` (top 10) |
 
 ## packages/api
 
@@ -44,7 +46,7 @@ Theme: `ThemeScript` (inline script in `<head>`) + `ThemeToggle` (client), `data
 - `brand`: `fetchTeamMembers`, `fetchGalleryItems`, `fetchTestimonials`, `fetchServices`, `fetchContactInfo`, `fetchCompanyStats`, `fetchFAQs`, `fetchClients`, `submitContactForm`, `subscribeNewsletter`, `fetchGalleryCategories`, `fetchDepartments`
 - `gallery`: `getGalleryItems(limit)`
 
-Data is Faker-generated (random per call unless seeded; check `blog.ts` for seeding before relying on stable slugs across requests). Simulated latency via timeouts.
+Data is Faker-generated and NOT seeded: memoized per process only, so separate build workers see different posts (see task 03 findings). `fetchPostBySlug` generates a random post for unknown slugs instead of returning `null`. Simulated latency via timeouts.
 
 ## Environment variables
 

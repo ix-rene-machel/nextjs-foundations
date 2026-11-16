@@ -37,6 +37,7 @@ Packages are consumed as source (no build step); `next.config.ts` in both apps i
 | blog `/` (listing) | `apps/blog/src/app/page.tsx`, `components/filter-controls.tsx` | task 13: ƒ, `searchParams` → category + sort in the URL; client filter chips |
 | `/contact` | `contact/page.tsx`, `actions/contact.ts`, `ui/submit-button.tsx` | task 14: Server Action + Zod validation, `useActionState` errors, `useFormStatus` pending. Static (○) |
 | `/products/[id]` | `products/[id]/page.tsx`, `lib/products.ts`, `actions/products.ts` | task 16: `use cache` + `cacheLife('products')` + tags, `updateTag` on edit, `instant = true` |
+| `/profile/[id]` | `profile/[id]/{page,loading}.tsx` | task 18: loading.tsx + three independent Suspense sections (header, stats, activity), each with a shaped skeleton; streams in order |
 | `/gallery` | `gallery/page.tsx` | plain `<img>` with picsum URLs, to convert to `next/image` |
 | `/profile/[id]` | `profile/[id]/page.tsx` | sequential awaits in `ProfileContent` inside `Suspense` |
 | `/env-demo` | `env-demo/page.tsx` | done (task 02): server vs. client env display, counter, `Collapsible` composition |

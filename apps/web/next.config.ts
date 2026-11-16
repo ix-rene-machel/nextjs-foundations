@@ -8,6 +8,17 @@ validateEnv();
 const blogUrl = process.env.BLOG_URL || 'http://localhost:3001';
 
 const nextConfig: NextConfig = {
+  images: {
+    // Allowlist (Next 16 requires it). Every `quality` prop used must be listed,
+    // otherwise it is coerced to the nearest entry (default is [75]).
+    qualities: [75, 80, 85],
+    formats: ['image/avif', 'image/webp'],
+    remotePatterns: [
+      // picsum.photos redirects to fastly.picsum.photos; Next follows the redirect
+      // server-side, so only the requested host needs to be allowed.
+      { protocol: 'https', hostname: 'picsum.photos' },
+    ],
+  },
   cacheComponents: true,
   partialPrefetching: true,
   cacheLife: {

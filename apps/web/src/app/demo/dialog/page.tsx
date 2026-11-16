@@ -1,6 +1,8 @@
 // Server Component: the dialog parts come from the client module in @repo/ui,
 // but everything passed as `children` (like the terms below) renders on the server.
 
+import { cacheLife } from "next/cache";
+import { Suspense } from "react";
 import { Button } from "@repo/ui/components/button";
 import {
   DialogClose,
@@ -13,16 +15,19 @@ import {
   DialogTrigger,
 } from "@repo/ui/components/dialog";
 
-// Simulated server data
+// Simulated server data. The date is the clock, so it is cached briefly.
 async function getTermsContent(): Promise<string> {
+  "use cache";
+  cacheLife("hours");
   // This would fetch from a CMS or database in a real app
   return `By using this service, you agree to our terms. These terms were last updated on ${new Date().toLocaleDateString("en-US", { timeZone: "UTC" })}. Server-rendered content can be passed as children to client components.`;
 }
 
-export default async function DialogDemoPage() {
-  // Fetch content on the server
-  const termsContent = await getTermsContent();
+async function TermsText() {
+  return <>{await getTermsContent()}</>;
+}
 
+export default function DialogDemoPage() {
   return (
     <main className="flex flex-col gap-8 p-8">
       <div>
@@ -89,7 +94,9 @@ export default async function DialogDemoPage() {
             </DialogHeader>
             {/* Server-rendered content passed through */}
             <div className="rounded-md bg-muted p-4 text-sm">
-              {termsContent}
+              <Suspense fallback="Loading terms…">
+                <TermsText />
+              </Suspense>
             </div>
             <DialogFooter>
               <DialogClose asChild>

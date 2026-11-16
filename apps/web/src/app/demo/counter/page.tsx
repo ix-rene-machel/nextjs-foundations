@@ -1,18 +1,19 @@
 // No 'use client' - this is a Server Component by default
 // Data fetching and heavy logic stays here on the server
 
+import { cacheLife } from "next/cache";
+import { Suspense } from "react";
 import { Counter } from "@/components/counter";
 
-// Simulated server-side data
-async function getServerTimestamp(): Promise<string> {
-  // This runs ONLY on the server
-  return new Date().toISOString();
+// Simulated server-side data. Cache Components forbids reading the clock in the
+// static shell, so it is a short-lived cached value behind <Suspense>.
+async function ServerTimestamp() {
+  "use cache";
+  cacheLife("seconds");
+  return <code className="font-mono text-xs">{new Date().toISOString()}</code>;
 }
 
-export default async function CounterDemoPage() {
-  // Server-side data fetching (no JS shipped for this)
-  const serverTimestamp = await getServerTimestamp();
-
+export default function CounterDemoPage() {
   return (
     <main className="flex flex-col gap-8 p-8">
       <div>
@@ -28,7 +29,9 @@ export default async function CounterDemoPage() {
         <h2 className="font-semibold text-lg">Server-Rendered Content</h2>
         <p className="mt-2 text-muted-foreground text-sm">
           Generated at:{" "}
-          <code className="font-mono text-xs">{serverTimestamp}</code>
+          <Suspense fallback={<code className="font-mono text-xs">…</code>}>
+            <ServerTimestamp />
+          </Suspense>
         </p>
         <p className="mt-1 text-muted-foreground text-sm">
           This content ships as HTML with zero JavaScript.

@@ -27,7 +27,7 @@ export function getUserFromDB(userId: string): UserRecord {
     passwordHash: "bcrypt$2b$10$...", // NEVER expose this
     internalNotes: `VIP customer (config: ${config})`, // NEVER expose this
     name: "Jane Developer",
-    createdAt: new Date().toISOString(),
+    createdAt: "2024-01-15T09:30:00.000Z", // stored value (a real DB row, not "now")
   };
 
   // Layer 4: if this record (or the hash) is ever passed to a Client Component,

@@ -1,7 +1,21 @@
-export default async function ShopPage(props: {
+import { Suspense } from "react";
+
+export default function ShopPage(props: {
   params: Promise<{ slug?: string[] }>;
 }) {
-  const params = await props.params;
+  return (
+    <Suspense fallback={<p className="p-8">Loading…</p>}>
+      <ShopContent params={props.params} />
+    </Suspense>
+  );
+}
+
+async function ShopContent({
+  params: paramsPromise,
+}: {
+  params: Promise<{ slug?: string[] }>;
+}) {
+  const params = await paramsPromise;
 
   // params.slug is undefined when no segments are present
   const categories = params.slug ?? [];

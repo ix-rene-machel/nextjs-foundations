@@ -36,6 +36,7 @@ Packages are consumed as source (no build step); `next.config.ts` in both apps i
 | `/nav-demo/*` | `nav-demo/**` | task 12: Link vs hard `<a>`, useRouter push/back/replace, redirect() + Server Action login (cookie `session`) |
 | blog `/` (listing) | `apps/blog/src/app/page.tsx`, `components/filter-controls.tsx` | task 13: ƒ, `searchParams` → category + sort in the URL; client filter chips |
 | `/contact` | `contact/page.tsx`, `actions/contact.ts`, `ui/submit-button.tsx` | task 14: Server Action + Zod validation, `useActionState` errors, `useFormStatus` pending. Static (○) |
+| `/products/[id]` | `products/[id]/page.tsx`, `lib/products.ts`, `actions/products.ts` | task 16: `use cache` + `cacheLife('products')` + tags, `updateTag` on edit, `instant = true` |
 | `/gallery` | `gallery/page.tsx` | plain `<img>` with picsum URLs, to convert to `next/image` |
 | `/profile/[id]` | `profile/[id]/page.tsx` | sequential awaits in `ProfileContent` inside `Suspense` |
 | `/env-demo` | `env-demo/page.tsx` | done (task 02): server vs. client env display, counter, `Collapsible` composition |
@@ -67,6 +68,10 @@ Theme: `ThemeScript` (inline script in `<head>`) + `ThemeToggle` (client), `data
 - `gallery`: `getGalleryItems(limit)`
 
 Data is Faker-generated and NOT seeded: memoized per process only, so separate build workers see different posts (see task 03 findings). `fetchPostBySlug` generates a random post for unknown slugs instead of returning `null`. Simulated latency via timeouts.
+
+## Cache Components (task 16)
+
+`next.config.ts` enables `cacheComponents` + `partialPrefetching` with `cacheLife` profiles `blog`, `products`, `social`. Rules for new code: request data (`params` without `generateStaticParams`, `cookies()`, `headers()`, `searchParams`) is read inside a `<Suspense>` child; clocks and randomness need `"use cache"` + `cacheLife` or a Suspense + `connection()` hole; no `runtime` / `dynamic` route segment exports (edge is unsupported).
 
 ## Multi-zone
 

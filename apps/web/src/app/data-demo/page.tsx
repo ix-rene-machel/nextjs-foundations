@@ -1,4 +1,5 @@
 import { connection } from "next/server";
+import { Suspense } from "react";
 import {
   fetchPosts,
   fetchStats,
@@ -59,8 +60,25 @@ async function fetchParallel(): Promise<Dashboard> {
   };
 }
 
-export default async function DataDemoPage() {
-  // Opt out of prerendering so timings are measured per request.
+export default function DataDemoPage() {
+  return (
+    <main className="mx-auto max-w-2xl p-8">
+      <h1 className="mb-6 font-bold text-3xl">
+        Data Fetching Without Waterfalls
+      </h1>
+      {/* The timings are per request, so only this subtree is request-time;
+          the heading above stays in the prerendered shell. */}
+      <Suspense
+        fallback={<p className="text-gray-500 text-sm">Measuring fetches…</p>}
+      >
+        <DataDemoResults />
+      </Suspense>
+    </main>
+  );
+}
+
+async function DataDemoResults() {
+  // Opt this subtree out of prerendering so timings are measured per request.
   await connection();
 
   const sequentialMs = await measureSequential();
@@ -72,11 +90,7 @@ export default async function DataDemoPage() {
   );
 
   return (
-    <main className="mx-auto max-w-2xl p-8">
-      <h1 className="mb-6 font-bold text-3xl">
-        Data Fetching Without Waterfalls
-      </h1>
-
+    <>
       <div className="mb-6 rounded-lg border-2 border-green-200 bg-green-50 p-4">
         <h2 className="font-semibold text-green-800">Performance Result</h2>
         <p className="text-green-700">
@@ -118,6 +132,6 @@ export default async function DataDemoPage() {
           <p>Likes: {stats.likes.toLocaleString("en-US")}</p>
         </div>
       </div>
-    </main>
+    </>
   );
 }

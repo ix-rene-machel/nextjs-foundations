@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { fetchPosts, fetchStats, fetchUser } from "../../data-demo/data";
 
 type PageProps = {
@@ -6,7 +7,15 @@ type PageProps = {
 
 // Lesson pattern: await params inside Promise.all next to the independent
 // fetches, so params resolution doesn't add a sequential step.
-export default async function UserPage({ params }: PageProps) {
+export default function UserPage({ params }: PageProps) {
+  return (
+    <Suspense fallback={<p className="p-8">Loading…</p>}>
+      <UserContent params={params} />
+    </Suspense>
+  );
+}
+
+async function UserContent({ params }: PageProps) {
   const [{ id }, user, posts, stats] = await Promise.all([
     params,
     fetchUser(),

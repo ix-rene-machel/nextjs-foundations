@@ -1,11 +1,21 @@
 import Link from "next/link";
 import { connection } from "next/server";
+import { Suspense } from "react";
 import { NavigationButtons } from "./navigation-buttons";
 
-export default async function NavDemoPage() {
-  // Opt out of prerendering: the timestamp below must be request-time.
+// Request-time hole: only this <p> opts into dynamic rendering, so the rest of
+// the page stays in the prerendered shell (connection() on the whole page would
+// make everything dynamic).
+async function RenderedAt() {
   await connection();
+  return (
+    <p className="text-gray-500 text-sm">
+      Rendered at {new Date().toISOString()}
+    </p>
+  );
+}
 
+export default function NavDemoPage() {
   return (
     <main className="mx-auto max-w-2xl space-y-6 p-8">
       <h1 className="font-bold text-3xl">Navigation Demo</h1>
@@ -86,9 +96,9 @@ export default async function NavDemoPage() {
         </Link>
       </section>
 
-      <p className="text-gray-500 text-sm">
-        Rendered at {new Date().toISOString()}
-      </p>
+      <Suspense fallback={<p className="text-gray-500 text-sm">Rendering…</p>}>
+        <RenderedAt />
+      </Suspense>
     </main>
   );
 }

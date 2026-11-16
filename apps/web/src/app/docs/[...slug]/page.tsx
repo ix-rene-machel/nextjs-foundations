@@ -1,7 +1,24 @@
-export default async function DocsPage(props: {
+import { Suspense } from "react";
+
+// With Cache Components, reading `params` for a route with no generateStaticParams
+// is request-time work. It lives in a child behind <Suspense> so the shell can
+// prerender.
+export default function DocsPage(props: {
   params: Promise<{ slug: string[] }>;
 }) {
-  const params = await props.params;
+  return (
+    <Suspense fallback={<p className="p-8">Loading…</p>}>
+      <DocsContent params={props.params} />
+    </Suspense>
+  );
+}
+
+async function DocsContent({
+  params: paramsPromise,
+}: {
+  params: Promise<{ slug: string[] }>;
+}) {
+  const params = await paramsPromise;
 
   // params.slug is an array of path segments
   const path = params.slug.join("/");

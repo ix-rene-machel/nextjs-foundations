@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 // Mock session check: a cookie named "session" means "logged in".
 async function getSession(): Promise<{ user: { name: string } } | null> {
@@ -7,7 +8,15 @@ async function getSession(): Promise<{ user: { name: string } } | null> {
   return store.get("session") ? { user: { name: "Demo User" } } : null;
 }
 
-export default async function RedirectDemoPage() {
+export default function RedirectDemoPage() {
+  return (
+    <Suspense fallback={<p className="p-8">Checking session…</p>}>
+      <ProtectedContent />
+    </Suspense>
+  );
+}
+
+async function ProtectedContent() {
   const session = await getSession();
 
   // redirect() throws; keep it outside try/catch. Runs before any markup.

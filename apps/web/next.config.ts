@@ -8,6 +8,13 @@ validateEnv();
 const blogUrl = process.env.BLOG_URL || 'http://localhost:3001';
 
 const nextConfig: NextConfig = {
+  cacheComponents: true,
+  partialPrefetching: true,
+  cacheLife: {
+    blog: { stale: 3600, revalidate: 86400, expire: 604800 },
+    products: { stale: 300, revalidate: 900, expire: 3600 },
+    social: { stale: 60, revalidate: 300, expire: 600 },
+  },
   experimental: {
     // Layer 4 (defense in depth): enables React's experimental taint APIs.
     // Side effect: switches the app directory to React's experimental channel

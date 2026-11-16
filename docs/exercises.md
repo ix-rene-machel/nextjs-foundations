@@ -24,6 +24,7 @@ When an exercise is finished, strike it here (`~~row~~`) and link the task file.
 - [06 Proxy Basics](tasks/06-proxy-basics.md)
 - [07 Client-Server Component Boundaries](tasks/07-client-server-boundaries.md)
 - [08 Component Composition Patterns](tasks/08-component-composition-patterns.md)
+- [17 Dynamic Metadata Done Right](tasks/17-dynamic-metadata.md) (branch `feat/advanced-dynamic-metadata`)
 - [16 Cache Components](tasks/16-cache-components.md) (branch `feat/cache-components`)
 - [15 Connecting Apps with Rewrites](tasks/15-connecting-apps-with-rewrites.md) (on `main`; Vercel steps pending)
 - [14 Server Actions for Forms](tasks/14-server-actions-for-forms.md) (branch `feat/core-server-actions-form`)

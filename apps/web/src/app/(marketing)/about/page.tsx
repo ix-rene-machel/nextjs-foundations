@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About Us",
   description: "Learn about our mission and team",
+  alternates: { canonical: "/about" },
 };
 
 // Simulate slow data fetch

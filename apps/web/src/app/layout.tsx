@@ -4,9 +4,25 @@ import "./globals.css";
 import { ThemeScript } from "@/components/theme-script";
 import { ThemeToggle } from "@/components/theme-toggle";
 
+// Site-wide defaults. metadataBase makes relative metadata URLs (canonical,
+// og:image) absolute. NEXT_PUBLIC_SITE_URL is the production origin.
+const siteName =
+  process.env.NEXT_PUBLIC_APP_NAME || "Vercel Academy Foundation";
+
 export const metadata: Metadata = {
-  title: process.env.NEXT_PUBLIC_APP_NAME || "Vercel Academy Foundation - Web",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
+  ),
+  title: {
+    template: `%s | ${siteName}`,
+    default: siteName,
+  },
   description: "VAF Web",
+  openGraph: {
+    siteName,
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

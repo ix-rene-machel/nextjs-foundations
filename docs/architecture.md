@@ -73,6 +73,10 @@ Data is Faker-generated and NOT seeded: memoized per process only, so separate b
 
 `next.config.ts` enables `cacheComponents` + `partialPrefetching` with `cacheLife` profiles `blog`, `products`, `social`. Rules for new code: request data (`params` without `generateStaticParams`, `cookies()`, `headers()`, `searchParams`) is read inside a `<Suspense>` child; clocks and randomness need `"use cache"` + `cacheLife` or a Suspense + `connection()` hole; no `runtime` / `dynamic` route segment exports (edge is unsupported).
 
+## Metadata
+
+Both roots set `metadataBase` from `NEXT_PUBLIC_SITE_URL` (blog: `…/blog`, because of basePath) and a title template. Canonicals are set per page, never in a root layout. The blog post page has `generateMetadata` with direct data access (no fetch to `/api`).
+
 ## Multi-zone
 
 `apps/web` (default zone) rewrites `/blog`, `/blog/:path*` and `/blog-static/:path+` to the blog zone at `BLOG_URL` (default `http://localhost:3001`). The blog has `basePath: '/blog'` and `assetPrefix: '/blog-static'`. The rewrite target is fixed at build time. Vercel needs `BLOG_URL` set for the web project's build; the blog has no Vercel project yet (task 15).
